@@ -6,6 +6,5 @@ public class Main {
         Window window = new Window();
         Thread t1= new Thread();
         t1.start();
-        System.out.println("yes");
     }
 }
