@@ -1,14 +1,13 @@
 package Pong;
 
-import javax.swing.JFrame;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
+import javax.swing.*;
+import java.awt.*;
 
 public class Window extends JFrame implements Runnable {
 
     Graphics2D g2;
     kl keyListener = new kl();
+    Rect playerOne, ai, ball;
 
     public Window() {
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -20,6 +19,10 @@ public class Window extends JFrame implements Runnable {
         this.addKeyListener(keyListener);//adds keyListener components
 
         g2 = (Graphics2D)this.getGraphics();
+
+        playerOne = new Rect(Constants.HZ_PADDING, 40, Constants.PADDLE_HEIGHT, Constants.PADDLE_WIDTH, Constants.PADDLE_COLOR);
+        ai = new Rect(Constants.SCREEN_WIDTH - Constants.PADDLE_WIDTH - Constants.HZ_PADDING, 40, Constants.PADDLE_HEIGHT, Constants.PADDLE_WIDTH, Constants.PADDLE_COLOR);
+        ball = new Rect(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_SIZE, Constants.BALL_SIZE, Constants.BALL_COLOR);
     }
 
     public void update (double dt){
@@ -27,12 +30,10 @@ public class Window extends JFrame implements Runnable {
         g2.setColor(Color.BLACK);
         g2.fillRect(0,0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
-        if(keyListener.isKeyPressed(KeyEvent.VK_UP)){
-            System.out.println("user is pressing up.");
-        }
-        else if(keyListener.isKeyPressed(KeyEvent.VK_DOWN)){
-            System.out.println("down");
-        }
+
+        playerOne.draw(g2);//draws rectangle paddle
+        ai.draw(g2);
+        ball.draw(g2);
     }
     public void run() {
 
